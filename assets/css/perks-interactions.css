@@ -154,6 +154,9 @@
 .perks-cond.perks-cond--sel {
   background: var(--perks-violet); border-color: var(--perks-violet); color: #fff;
 }
+.perks-field.perks-error .perks-conds {
+  outline: 2px solid rgba(214,69,69,.45); outline-offset: 4px; border-radius: 12px;
+}
 
 /* Ações */
 .perks-modal__actions { display: flex; gap: 10px; }

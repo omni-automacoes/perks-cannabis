@@ -71,10 +71,11 @@
         el.classList.toggle('perks-cond--sel', el.getAttribute('data-condition') === state.condition);
       });
     }
+    if (condField && state.condition) condField.classList.remove('perks-error');
   }
 
   /* ---------- popup / modal ---------- */
-  var overlay, modalConds, nameInput, nameField, waBtn;
+  var overlay, modalConds, nameInput, nameField, waBtn, condField;
 
   function buildModal() {
     overlay = document.createElement('div');
@@ -94,9 +95,10 @@
           '<input type="text" class="perks-input" id="perks-name" placeholder="Como você se chama?" autocomplete="name">' +
           '<span class="perks-field__err">Por favor, preencha seu nome.</span>' +
         '</label>' +
-        '<div class="perks-field">' +
-          '<span class="perks-field__label">Qual a sua condição? <small>(escolha 1)</small></span>' +
+        '<div class="perks-field" id="perks-cond-field">' +
+          '<span class="perks-field__label">Qual a sua condição? <i>*</i> <small>(escolha 1)</small></span>' +
           '<div class="perks-conds" role="radiogroup"></div>' +
+          '<span class="perks-field__err">Selecione a sua condição para continuar.</span>' +
         '</div>' +
         '<div class="perks-modal__actions">' +
           '<button class="perks-modal__btn perks-modal__btn--ghost" type="button" data-perks-close>Voltar</button>' +
@@ -109,6 +111,7 @@
     modalConds = overlay.querySelector('.perks-conds');
     nameInput  = overlay.querySelector('#perks-name');
     nameField  = overlay.querySelector('#perks-name-field');
+    condField  = overlay.querySelector('#perks-cond-field');
     waBtn      = overlay.querySelector('.perks-modal__btn--wa');
 
     // popular condições
@@ -132,11 +135,12 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
 
     waBtn.addEventListener('click', function () {
-      if (!state.name) {
-        nameField.classList.add('perks-error');
-        nameInput.focus();
-        return;
-      }
+      var okName = !!state.name;
+      var okCond = !!state.condition;
+      nameField.classList.toggle('perks-error', !okName);
+      condField.classList.toggle('perks-error', !okCond);
+      if (!okName) { nameInput.focus(); return; }
+      if (!okCond) { condField.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); return; }
       window.open(waURL(buildMessage()), '_blank', 'noopener');
     });
   }
@@ -149,6 +153,7 @@
     });
     nameInput.value = state.name;
     nameField.classList.remove('perks-error');
+    condField.classList.remove('perks-error');
     overlay.classList.add('perks-open');
     document.body.style.overflow = 'hidden';
     setTimeout(function () { nameInput.focus(); }, 60);
