@@ -23,13 +23,12 @@
     return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text);
   }
 
-  // Mensagem variável com nome + condição do paciente
+  // Mensagem variável com nome + condição (sintoma) do paciente
+  var TPL     = CFG.template     || 'Olá! Meu nome é {nome}. Estou buscando ajuda para {sintoma} e gostaria de entender como funciona a avaliação da PERKS CANNABIS.';
+  var TPL_SEM = CFG.template_sem || 'Olá! Meu nome é {nome}. Gostaria de entender como funciona a avaliação da PERKS CANNABIS.';
   function buildMessage() {
-    var m = 'Olá!';
-    if (state.name) m += ' Meu nome é ' + state.name + '.';
-    m += ' Vim pelo site e gostaria de iniciar meu tratamento com Cannabis Medicinal.';
-    if (state.condition) m += ' Minha condição: ' + state.condition + '.';
-    return m;
+    var t = state.condition ? TPL : TPL_SEM;
+    return t.replace('{nome}', state.name || '').replace('{sintoma}', state.condition || '');
   }
 
   /* ---------- navegação suave ---------- */

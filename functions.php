@@ -54,13 +54,11 @@ function perks_enqueue_assets() {
 	// ---- Single source of truth for the WhatsApp number + messages ----
 	// Para trocar o número, edite a constante PERKS_WHATSAPP no fim deste arquivo.
 	$perks_config = array(
-		'wa'       => defined( 'PERKS_WHATSAPP' ) ? PERKS_WHATSAPP : '5511994300213',
-		'messages' => array(
-			'agendar'   => 'Olá! Vim pelo site e gostaria de agendar minha consulta de Cannabis Medicinal (R$ 99).',
-			'falar'     => 'Olá! Gostaria de falar com a Perks e tirar algumas dúvidas sobre o tratamento.',
-			'condicoes' => 'Olá! Vim pelo site e quero iniciar meu tratamento com Cannabis Medicinal.',
-			'float'     => 'Olá! Vim pelo site da Perks e gostaria de mais informações.',
-		),
+		'wa' => defined( 'PERKS_WHATSAPP' ) ? PERKS_WHATSAPP : '5511994300213',
+		// Mensagem enviada ao WhatsApp. {nome} e {sintoma} são preenchidos com os dados do paciente.
+		'template'     => 'Olá! Meu nome é {nome}. Estou buscando ajuda para {sintoma} e gostaria de entender como funciona a avaliação da PERKS CANNABIS.',
+		// Usada quando o paciente não seleciona uma condição.
+		'template_sem' => 'Olá! Meu nome é {nome}. Gostaria de entender como funciona a avaliação da PERKS CANNABIS.',
 	);
 	wp_add_inline_script(
 		'perks-interactions',
