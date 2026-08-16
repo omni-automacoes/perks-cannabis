@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Perks — camada interativa (CTAs, chips de condição, popup, WhatsApp)
-   Identidade visual PERKS: violeta #7536E3, verde #183A29, creme #FFFBF7,
+   Perks — camada interativa (CTAs, popup de captação, WhatsApp)
+   Identidade PERKS: violeta #7536E3, verde #183A29, creme #FFFBF7,
    amarelo/oliva #B5C22E. WhatsApp: #25D366.
    ========================================================================== */
 
@@ -8,6 +8,7 @@
   --perks-violet: #7536E3;
   --perks-violet-dark: #5a24bd;
   --perks-green: #183A29;
+  --perks-green-soft: #e8efe9;
   --perks-cream: #FFFBF7;
   --perks-olive: #B5C22E;
   --perks-wa: #25D366;
@@ -25,7 +26,7 @@
 #perks-stage [data-perks-nav]:hover { filter: brightness(1.06); }
 #perks-stage [data-perks-cta]:active { transform: translateZ(0) scale(.98); }
 
-/* Chips de condição — estado selecionado */
+/* Chips de condição na página — estado selecionado (seleção única) */
 #perks-stage [data-perks-chip]:hover { filter: brightness(1.03); }
 #perks-stage [data-perks-chip].perks-sel {
   background: var(--perks-violet) !important;
@@ -37,39 +38,23 @@
    Botão flutuante de WhatsApp
    ========================================================================== */
 #perks-wa-float {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 99998;
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
+  position: fixed; right: 24px; bottom: 24px; z-index: 99998;
+  width: 62px; height: 62px; border-radius: 50%;
   background: var(--perks-wa);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   box-shadow: 0 8px 24px rgba(0,0,0,.28);
-  cursor: pointer;
-  border: none;
+  cursor: pointer; border: none;
   transition: transform .18s ease, box-shadow .18s ease;
   animation: perks-wa-pulse 2.6s infinite;
 }
 #perks-wa-float:hover { transform: scale(1.08); box-shadow: 0 10px 28px rgba(0,0,0,.34); }
 #perks-wa-float svg { width: 34px; height: 34px; fill: #fff; }
 #perks-wa-float .perks-wa-label {
-  position: absolute;
-  right: 74px;
-  background: var(--perks-green);
-  color: #fff;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  white-space: nowrap;
-  padding: 8px 14px;
-  border-radius: 10px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(8px);
+  position: absolute; right: 74px;
+  background: var(--perks-green); color: #fff;
+  font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600;
+  white-space: nowrap; padding: 8px 14px; border-radius: 10px;
+  opacity: 0; pointer-events: none; transform: translateX(8px);
   transition: opacity .18s ease, transform .18s ease;
 }
 #perks-wa-float:hover .perks-wa-label { opacity: 1; transform: translateX(0); }
@@ -80,136 +65,116 @@
 }
 
 /* ==========================================================================
-   Popup / Modal (seleção de condições -> WhatsApp)
+   Popup / Modal de captação (Nome + 1 condição -> WhatsApp)
    ========================================================================== */
 #perks-modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  position: fixed; inset: 0; z-index: 99999;
+  display: none; align-items: center; justify-content: center; padding: 20px;
   background: rgba(24,58,41,.55);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  opacity: 0;
-  transition: opacity .2s ease;
+  backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+  opacity: 0; transition: opacity .2s ease;
 }
 #perks-modal-overlay.perks-open { display: flex; opacity: 1; }
 
 .perks-modal {
-  width: 100%;
-  max-width: 520px;
-  background: var(--perks-cream);
-  border-radius: 24px;
+  width: 100%; max-width: 500px;
+  background: var(--perks-cream); border-radius: 26px;
   box-shadow: 0 30px 80px rgba(0,0,0,.35);
-  padding: 34px 32px 30px;
-  font-family: 'Montserrat', sans-serif;
-  color: var(--perks-green);
+  padding: 26px 26px 24px;
+  font-family: 'Montserrat', sans-serif; color: var(--perks-green);
   position: relative;
-  transform: translateY(14px) scale(.98);
-  transition: transform .22s ease;
-  max-height: 90vh;
-  overflow-y: auto;
+  transform: translateY(14px) scale(.98); transition: transform .22s ease;
+  max-height: 92vh; overflow-y: auto;
 }
 #perks-modal-overlay.perks-open .perks-modal { transform: translateY(0) scale(1); }
 
 .perks-modal__close {
-  position: absolute;
-  top: 16px; right: 18px;
-  width: 34px; height: 34px;
-  border: none;
-  background: rgba(24,58,41,.08);
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-  color: var(--perks-green);
-  transition: background .15s ease;
+  position: absolute; top: 14px; right: 16px;
+  width: 34px; height: 34px; border: none;
+  background: rgba(24,58,41,.08); border-radius: 50%;
+  cursor: pointer; font-size: 20px; line-height: 1; color: var(--perks-green);
+  transition: background .15s ease; z-index: 2;
 }
 .perks-modal__close:hover { background: rgba(24,58,41,.16); }
 
-.perks-modal__tag {
-  display: inline-block;
-  background: var(--perks-olive);
-  color: var(--perks-green);
-  font-family: 'Space Mono', monospace;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  padding: 5px 12px;
-  border-radius: 100px;
-  margin-bottom: 14px;
+/* Cabeçalho ilustrado */
+.perks-modal__head {
+  background: var(--perks-green-soft);
+  border-radius: 18px; padding: 22px 18px 20px;
+  text-align: center; margin-bottom: 20px;
 }
-.perks-modal__title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 27px;
-  line-height: 1.12;
-  letter-spacing: -.01em;
-  margin-bottom: 10px;
+.perks-modal__badges { display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; }
+.perks-modal__badge {
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
 }
-.perks-modal__sub {
-  font-size: 15px;
-  line-height: 1.5;
-  color: #3f5147;
-  margin-bottom: 18px;
+.perks-modal__badge svg { width: 24px; height: 24px; }
+.perks-modal__badge--green { background: var(--perks-green); }
+.perks-modal__badge--green svg { fill: var(--perks-olive); }
+.perks-modal__badge--olive { background: var(--perks-olive); }
+.perks-modal__badge--olive svg { fill: var(--perks-green); }
+.perks-modal__headline {
+  font-family: 'Space Grotesk', sans-serif; font-size: 19px; line-height: 1.25;
+  color: var(--perks-green); font-weight: 500;
 }
-.perks-modal__conds {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.perks-modal__headline b { font-weight: 700; }
+
+/* Campos */
+.perks-field { display: block; margin-bottom: 16px; }
+.perks-field__label {
+  display: block; font-size: 14px; font-weight: 600; margin-bottom: 7px; color: var(--perks-green);
+}
+.perks-field__label i { color: #d64545; font-style: normal; }
+.perks-field__label small { font-weight: 500; color: #7a6f66; }
+.perks-input {
+  width: 100%; border: 1.5px solid rgba(24,58,41,.16); background: #fff;
+  border-radius: 12px; padding: 13px 15px;
+  font-family: 'Montserrat', sans-serif; font-size: 15px; color: var(--perks-green);
+  outline: none; transition: border-color .15s ease, box-shadow .15s ease;
+}
+.perks-input::placeholder { color: #a99f96; }
+.perks-input:focus { border-color: var(--perks-violet); box-shadow: 0 0 0 3px rgba(117,54,227,.12); }
+.perks-field.perks-error .perks-input { border-color: #d64545; box-shadow: 0 0 0 3px rgba(214,69,69,.12); }
+.perks-field__err { display: none; color: #d64545; font-size: 12.5px; margin-top: 6px; }
+.perks-field.perks-error .perks-field__err { display: block; }
+
+/* Lista de condições — seleção única (chips) */
+.perks-conds {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  max-height: 168px; overflow-y: auto; padding: 2px;
   margin-bottom: 22px;
 }
-.perks-modal__cond {
-  background: rgba(117,54,227,.1);
-  color: var(--perks-violet);
-  border: 1px solid rgba(117,54,227,.35);
-  border-radius: 100px;
-  padding: 7px 14px;
-  font-size: 13px;
-  font-weight: 600;
+.perks-cond {
+  border: 1.5px solid rgba(24,58,41,.2); background: #fff;
+  color: var(--perks-green); border-radius: 100px;
+  padding: 9px 15px; font-size: 13.5px; font-weight: 600;
+  cursor: pointer; transition: all .13s ease; user-select: none;
 }
-.perks-modal__empty {
-  font-size: 14px;
-  color: #7a6f66;
-  background: rgba(24,58,41,.05);
-  border-radius: 12px;
-  padding: 12px 14px;
-  margin-bottom: 22px;
-}
-.perks-modal__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  background: var(--perks-wa);
-  color: #fff;
-  border: none;
-  border-radius: 100px;
-  padding: 16px 20px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background .15s ease;
-}
-.perks-modal__btn:hover { background: var(--perks-wa-dark); }
-.perks-modal__btn svg { width: 22px; height: 22px; fill: #fff; }
-.perks-modal__note {
-  text-align: center;
-  font-size: 12px;
-  color: #9a8f86;
-  margin-top: 12px;
+.perks-cond:hover { border-color: var(--perks-violet); }
+.perks-cond.perks-cond--sel {
+  background: var(--perks-violet); border-color: var(--perks-violet); color: #fff;
 }
 
+/* Ações */
+.perks-modal__actions { display: flex; gap: 10px; }
+.perks-modal__btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 9px;
+  border-radius: 100px; padding: 15px 16px;
+  font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; text-decoration: none; border: none; transition: all .15s ease;
+}
+.perks-modal__btn--wa { background: var(--perks-wa); color: #fff; flex: 1.6; }
+.perks-modal__btn--wa:hover { background: var(--perks-wa-dark); }
+.perks-modal__btn--wa svg { width: 20px; height: 20px; fill: #fff; }
+.perks-modal__btn--ghost { background: transparent; color: var(--perks-green); border: 1.5px solid rgba(24,58,41,.25); }
+.perks-modal__btn--ghost:hover { background: rgba(24,58,41,.06); }
+.perks-modal__note { text-align: center; font-size: 12px; color: #9a8f86; margin-top: 13px; }
+
 @media (max-width: 560px) {
-  .perks-modal { padding: 28px 22px 24px; border-radius: 20px; }
-  .perks-modal__title { font-size: 23px; }
+  .perks-modal { padding: 22px 18px 20px; border-radius: 20px; }
+  .perks-modal__headline { font-size: 17px; }
+  .perks-modal__actions { flex-direction: column-reverse; }
+  .perks-modal__btn { flex: none; width: 100%; }
   #perks-wa-float { width: 56px; height: 56px; right: 16px; bottom: 16px; }
   #perks-wa-float svg { width: 30px; height: 30px; }
   #perks-wa-float .perks-wa-label { display: none; }
