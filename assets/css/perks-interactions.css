@@ -1,0 +1,216 @@
+/* ==========================================================================
+   Perks — camada interativa (CTAs, chips de condição, popup, WhatsApp)
+   Identidade visual PERKS: violeta #7536E3, verde #183A29, creme #FFFBF7,
+   amarelo/oliva #B5C22E. WhatsApp: #25D366.
+   ========================================================================== */
+
+:root {
+  --perks-violet: #7536E3;
+  --perks-violet-dark: #5a24bd;
+  --perks-green: #183A29;
+  --perks-cream: #FFFBF7;
+  --perks-olive: #B5C22E;
+  --perks-wa: #25D366;
+  --perks-wa-dark: #1da851;
+}
+
+/* --- Elementos clicáveis do design (CTAs e chips) --- */
+#perks-stage [data-perks-cta],
+#perks-stage [data-perks-chip],
+#perks-stage [data-perks-nav] {
+  cursor: pointer;
+  transition: filter .15s ease, transform .12s ease;
+}
+#perks-stage [data-perks-cta]:hover,
+#perks-stage [data-perks-nav]:hover { filter: brightness(1.06); }
+#perks-stage [data-perks-cta]:active { transform: translateZ(0) scale(.98); }
+
+/* Chips de condição — estado selecionado */
+#perks-stage [data-perks-chip]:hover { filter: brightness(1.03); }
+#perks-stage [data-perks-chip].perks-sel {
+  background: var(--perks-violet) !important;
+  border-color: var(--perks-violet) !important;
+}
+#perks-stage [data-perks-chip].perks-sel * { color: #fff !important; }
+
+/* ==========================================================================
+   Botão flutuante de WhatsApp
+   ========================================================================== */
+#perks-wa-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 99998;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: var(--perks-wa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.28);
+  cursor: pointer;
+  border: none;
+  transition: transform .18s ease, box-shadow .18s ease;
+  animation: perks-wa-pulse 2.6s infinite;
+}
+#perks-wa-float:hover { transform: scale(1.08); box-shadow: 0 10px 28px rgba(0,0,0,.34); }
+#perks-wa-float svg { width: 34px; height: 34px; fill: #fff; }
+#perks-wa-float .perks-wa-label {
+  position: absolute;
+  right: 74px;
+  background: var(--perks-green);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border-radius: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(8px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+#perks-wa-float:hover .perks-wa-label { opacity: 1; transform: translateX(0); }
+@keyframes perks-wa-pulse {
+  0%   { box-shadow: 0 8px 24px rgba(0,0,0,.28), 0 0 0 0 rgba(37,211,102,.55); }
+  70%  { box-shadow: 0 8px 24px rgba(0,0,0,.28), 0 0 0 16px rgba(37,211,102,0); }
+  100% { box-shadow: 0 8px 24px rgba(0,0,0,.28), 0 0 0 0 rgba(37,211,102,0); }
+}
+
+/* ==========================================================================
+   Popup / Modal (seleção de condições -> WhatsApp)
+   ========================================================================== */
+#perks-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(24,58,41,.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+#perks-modal-overlay.perks-open { display: flex; opacity: 1; }
+
+.perks-modal {
+  width: 100%;
+  max-width: 520px;
+  background: var(--perks-cream);
+  border-radius: 24px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  padding: 34px 32px 30px;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--perks-green);
+  position: relative;
+  transform: translateY(14px) scale(.98);
+  transition: transform .22s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+#perks-modal-overlay.perks-open .perks-modal { transform: translateY(0) scale(1); }
+
+.perks-modal__close {
+  position: absolute;
+  top: 16px; right: 18px;
+  width: 34px; height: 34px;
+  border: none;
+  background: rgba(24,58,41,.08);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--perks-green);
+  transition: background .15s ease;
+}
+.perks-modal__close:hover { background: rgba(24,58,41,.16); }
+
+.perks-modal__tag {
+  display: inline-block;
+  background: var(--perks-olive);
+  color: var(--perks-green);
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 5px 12px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+}
+.perks-modal__title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 27px;
+  line-height: 1.12;
+  letter-spacing: -.01em;
+  margin-bottom: 10px;
+}
+.perks-modal__sub {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #3f5147;
+  margin-bottom: 18px;
+}
+.perks-modal__conds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.perks-modal__cond {
+  background: rgba(117,54,227,.1);
+  color: var(--perks-violet);
+  border: 1px solid rgba(117,54,227,.35);
+  border-radius: 100px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.perks-modal__empty {
+  font-size: 14px;
+  color: #7a6f66;
+  background: rgba(24,58,41,.05);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 22px;
+}
+.perks-modal__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: var(--perks-wa);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 16px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s ease;
+}
+.perks-modal__btn:hover { background: var(--perks-wa-dark); }
+.perks-modal__btn svg { width: 22px; height: 22px; fill: #fff; }
+.perks-modal__note {
+  text-align: center;
+  font-size: 12px;
+  color: #9a8f86;
+  margin-top: 12px;
+}
+
+@media (max-width: 560px) {
+  .perks-modal { padding: 28px 22px 24px; border-radius: 20px; }
+  .perks-modal__title { font-size: 23px; }
+  #perks-wa-float { width: 56px; height: 56px; right: 16px; bottom: 16px; }
+  #perks-wa-float svg { width: 30px; height: 30px; }
+  #perks-wa-float .perks-wa-label { display: none; }
+}

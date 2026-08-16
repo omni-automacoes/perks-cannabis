@@ -1,0 +1,47 @@
+/*
+Theme Name: Perks Cannabis Medicinal
+Theme URI: https://perks.com.br/
+Author: Auctus
+Description: Landing page da Perks (Cannabis Medicinal) — conversão fiel do layout do Figma (versão V9D). Reprodução pixel a pixel do design desktop (1920px) com escala fluida responsiva para tablet e mobile.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: perks
+*/
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.perks-landing {
+  overflow-x: hidden;
+}
+
+/* Fluid scaler: the 1920x10480 desktop design is scaled to fit any viewport width,
+   preserving the exact layout (no reflow) on tablet and mobile. */
+#perks-scaler {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #FFFBF7;
+}
+
+#perks-stage {
+  position: relative;
+  width: 1920px;
+  height: 10480px;
+  transform-origin: top left;
+  background: #FFFBF7;
+}
+
+#perks-stage div { line-height: normal; }
+
+/* Placeholder cursor affordance for interactive-looking elements (visual-only phase) */
+#perks-stage a { text-decoration: none; color: inherit; }
