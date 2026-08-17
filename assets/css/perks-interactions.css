@@ -26,6 +26,26 @@
 #perks-stage [data-perks-nav]:hover { filter: brightness(1.06); }
 #perks-stage [data-perks-cta]:active { transform: translateZ(0) scale(.98); }
 
+/* Correção de layout: centraliza o texto dentro do chip (larguras de texto vieram
+   "congeladas" do Figma e transbordavam). O frame do chip já está bem posicionado. */
+#perks-stage [data-perks-chip] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+#perks-stage [data-perks-chip] > div {
+  position: static !important;
+  transform: none !important;
+  width: auto !important;
+  height: auto !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+}
+
+/* Oculta o chip "Outro motivo" órfão (elemento solto do Figma que flutuava sobre
+   a seção de produtos). A opção continua disponível dentro do popup. */
+#perks-stage [data-perks-chip][data-condition="Outro motivo"] { display: none !important; }
+
 /* Chips de condição na página — estado selecionado (seleção única) */
 #perks-stage [data-perks-chip]:hover { filter: brightness(1.03); }
 #perks-stage [data-perks-chip].perks-sel {
